@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Seoyeon Choi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfolio of Seoyeon Choi – PR, writing, and art communication." />
+  <style>
+    :root {
+      --bg: #f6f4f2;
+      --text: #111111;
+      --muted: #777777;
+      --accent: #222222;
+      --border: #dddddd;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 20px 24px;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .nav a {
+      padding-bottom: 2px;
+      border-bottom: 1px solid transparent;
+    }
+
+    .nav a:hover {
+      border-bottom-color: var(--accent);
+    }
+
+    .lang-switch {
+      font-size: 0.8rem;
+      display: flex;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .lang-switch span {
+      cursor: default;
+    }
+
+    .lang-switch .active {
+      font-weight: 600;
+    }
+
+    .main-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.4fr);
+      gap: 32px;
+    }
+
+    @media (max-width: 900px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .intro {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 520px;
+    }
+
+    .intro-title {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+
+    .intro-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .intro-text {
+      font-size: 0.95rem;
+    }
+
+    .intro-meta {
+      margin-top: 16px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      align-content: flex-start;
+    }
+
+    .card {
+      position: relative;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      padding: 10px 10px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease, border-color 0.1s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 14px rgba(0, 0, 0, 0.06);
+      border-color: #cccccc;
+    }
+
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      background: #e4e1dd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+    }
+
+    footer a {
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="brand">
+        <a href="/">Seoyeon&nbsp;Choi</a>
+      </div>
+
+      <nav class="nav">
+        <a href="#bio">Bio</a>
+        <a href="#work">Projects</a>
+        <a href="#writing">Writing</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="lang-switch">
+        <span class="active">EN</span> /
+        <span>KR</span>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      <!-- Left / intro -->
+      <section class="intro">
+        <div class="intro-title">
+          PR, writing, and storytelling for contemporary art
+        </div>
+        <div class="intro-sub" id="bio">
+          Seoyeon Choi is a PR professional and writer based in Seoul, working between galleries, artists, and institutions.
+        </div>
+        <div class="intro-text">
+          She develops press materials, exhibition texts, and communication strategies for contemporary art,
+          connecting local narratives with international audiences through clear, precise language.
+        </div>
+        <div class="intro-meta">
+          Selected work includes collaborations with museums, art fairs, and publishers on press releases,
+          interviews, catalogs, and editorial features.
+        </div>
+      </section>
+
+      <!-- Right / grid -->
+      <section class="grid" id="work">
+        <!-- 카드 1 -->
+        <article class="card">
+          <div class="card-thumb">
+            Image placeholder
+          </div>
+          <div class="card-title">
+            Exhibition PR &amp; Press Materials
+          </div>
+          <div class="card-meta">
+            Gallery projects · Seoul / International
+          </div>
+        </article>
+
+        <!-- 카드 2 -->
+        <article class="card" id="writing">
+          <div class="card-thumb">
+            Text-based project
+          </div>
+          <div class="card-title">
+            Essays, interviews, and translations
+          </div>
+          <div class="card-meta">
+            English &amp; Korean writing for art media
+          </div>
+        </article>
+
+        <!-- 카드 3 -->
+        <article class="card">
+          <div class="card-thumb">
+            Art fair communications
+          </div>
+          <div class="card-title">
+            Art fair communication &amp; media coordination
+          </div>
+          <div class="card-meta">
+            Art Basel, Frieze, and beyond
+          </div>
+        </article>
+
+        <!-- 카드 4 -->
+        <article class="card">
+          <div class="card-thumb">
+            Editorial collaboration
+          </div>
+          <div class="card-title">
+            Publishing &amp; editorial partnerships
+          </div>
+          <div class="card-meta">
+            Magazines, catalogs, and special issues
+          </div>
+        </article>
+
+        <!-- 카드 5 -->
+        <article class="card">
+          <div class="card-thumb">
+            Ongoing practice
+          </div>
+          <div class="card-title">
+            Research-driven art communication
+          </div>
+          <div class="card-meta">
+            Long-form projects and curatorial support
+          </div>
+        </article>
+
+        <!-- 카드 6 -->
+        <article class="card" id="contact">
+          <div class="card-thumb">
+            Contact
+          </div>
+          <div class="card-title">
+            Contact / Availability
+          </div>
+          <div class="card-meta">
+            Email: <a href="mailto:hello@seoyeonchoi.com">hello@seoyeonchoi.com</a>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <div>
+        © <span id="year"></span> Seoyeon Choi
+      </div>
+      <div>
+        Based in Seoul · Working internationally
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // 자동으로 연도 업데이트
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
