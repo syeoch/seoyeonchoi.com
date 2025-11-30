@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SEOYEON CHOI</title>
     <style>
-        /* --- 1. 기본 설정 (Reset & Fonts) --- */
+        /* --- 기본 설정 --- */
         * {
             margin: 0;
             padding: 0;
@@ -13,127 +13,94 @@
         }
 
         body {
-            /* 본문 폰트는 스크린샷과 유사한 세리프(명조) 계열 */
-            font-family: 'Times New Roman', Times, serif; 
+            font-family: 'Times New Roman', Times, serif; /* 세리프 폰트로 우아한 느낌 */
             background-color: #fff;
-            color: #000;
-            overflow-x: hidden; /* 가로 스크롤 방지 */
+            color: #111;
             height: 100vh;
+            overflow: hidden; /* 스크롤 없이 한 화면에 보여주는 스타일 */
             position: relative;
         }
 
-        /* --- 2. 상단 네비게이션 (Menu) --- */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 30px 40px;
-            z-index: 100;
-        }
-
-        .menu-text {
-            font-size: 1.1rem;
-            cursor: pointer;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
-
-        /* --- 3. 배경 고정 텍스트 (SEOYEON CHOI) --- */
-        /* 스크린샷처럼 화면 양옆에 고정되어 움직이지 않는 큰 이름 */
+        /* --- 1. 배경 고정 텍스트 (SEOYEON ... CHOI) --- */
         .fixed-name-layer {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 0;
             width: 100%;
             transform: translateY(-50%);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
-            z-index: 0; /* 콘텐츠 뒤에 위치 */
-            pointer-events: none; /* 드래그나 클릭 방해하지 않음 */
+            justify-content: space-between; /* 양 끝 정렬 */
+            padding: 0 5vw; /* 좌우 여백을 주어 화면 끝에 딱 붙지 않게 함 */
+            z-index: 0;
+            pointer-events: none; /* 클릭 방해 금지 */
         }
 
         .big-text {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 굵은 고딕 */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 굵은 산세리프 */
             font-weight: 900;
-            font-size: 5vw; /* 화면 너비에 비례한 크기 */
+            font-size: 6vw; /* 화면 크기에 반응하는 폰트 크기 */
             letter-spacing: -2px;
             text-transform: uppercase;
+            color: #000;
         }
 
-        /* --- 4. 메인 콘텐츠 그리드 (플레이스홀더 영역) --- */
-        /* 스크린샷처럼 요소들이 흩뿌려진 느낌을 주기 위한 그리드 */
+        /* --- 2. 메인 콘텐츠 그리드 (텍스트 링크 영역) --- */
         main.grid-container {
             position: relative;
-            z-index: 1; /* 이름보다 위에 위치 */
+            z-index: 10; /* 이름보다 위에 위치 */
             width: 100%;
-            min-height: 100vh;
+            height: 100vh;
+            max-width: 800px; /* 중앙 콘텐츠가 너무 퍼져서 이름을 가리지 않도록 제한 */
+            margin: 0 auto;   /* 중앙 정렬 */
+            
             display: grid;
-            grid-template-columns: repeat(12, 1fr); /* 12칸 그리드 시스템 */
-            grid-template-rows: repeat(12, 1fr); /* 세로도 12칸 등분 */
-            padding: 100px 40px;
-            gap: 20px;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(12, 1fr);
         }
 
-        /* 플레이스홀더 스타일 */
-        .placeholder-item {
+        /* 텍스트 링크 스타일 */
+        .text-link {
+            text-decoration: none;
+            color: #000;
+            font-size: 1.2rem;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.3s;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            background-color: #f4f4f4; /* 영역 확인용 회색 배경 (실사용시 제거 가능) */
-            border: 1px dashed #ccc;   /* 영역 확인용 점선 (실사용시 제거 가능) */
-            padding: 20px;
-            transition: transform 0.3s;
         }
 
-        .placeholder-item:hover {
-            transform: scale(1.02);
-            background-color: #eee;
+        .text-link:hover {
+            opacity: 0.6;
+            transform: skewX(-10deg); /* 호버 시 살짝 기울어지는 효과 */
+            text-decoration: underline;
+            text-underline-offset: 4px;
         }
 
-        .caption {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            color: #333;
-        }
-
-        /* --- 5. 각 아이템의 위치 지정 (스크린샷 레이아웃 모방) --- */
+        /* --- 3. 각 항목 배치 (불규칙한 느낌) --- */
         
-        /* 아이템 1: 상단 중앙 (The Life) */
+        /* 1. Translation & Editorial Work (상단 약간 왼쪽) */
         .item-1 {
-            grid-column: 5 / span 3;
-            grid-row: 2 / span 3;
-        }
-
-        /* 아이템 2: 상단 우측 (Open Body) */
-        .item-2 {
-            grid-column: 9 / span 3;
-            grid-row: 2 / span 3;
-        }
-
-        /* 아이템 3: 맨 우측 캡션 (Caption 2) */
-        .item-3 {
-            grid-column: 12 / span 1;
-            grid-row: 2 / span 1;
-            background: transparent;
-            border: none;
+            grid-column: 2 / span 6;
+            grid-row: 3 / span 2;
             justify-content: flex-start;
         }
 
-        /* 아이템 4: 하단 중앙 (Waiting for...) */
-        .item-4 {
-            grid-column: 5 / span 4;
-            grid-row: 8 / span 3;
+        /* 2. Media Relations & Press Communications (중앙 약간 오른쪽) */
+        .item-2 {
+            grid-column: 6 / span 6;
+            grid-row: 6 / span 2;
+            text-align: right;
+            justify-content: flex-end;
         }
 
-        /* 아이템 5: 하단 우측 (Redeemer...) */
-        .item-5 {
-            grid-column: 10 / span 3;
-            grid-row: 8 / span 3;
+        /* 3. PR Strategy & Content Development (하단 중앙) */
+        .item-3 {
+            grid-column: 3 / span 8;
+            grid-row: 9 / span 2;
+            justify-content: center;
+            text-align: center;
         }
 
 
@@ -142,27 +109,32 @@
             .fixed-name-layer {
                 flex-direction: column;
                 gap: 20px;
-                opacity: 0.1; /* 모바일엔 배경 텍스트 흐리게 */
+                padding: 0;
+                align-items: center;
+                opacity: 0.1; /* 모바일에서는 배경 텍스트를 연하게 */
+            }
+
+            .big-text {
+                font-size: 15vw;
             }
 
             main.grid-container {
                 display: flex;
                 flex-direction: column;
-                padding-top: 80px;
+                justify-content: center;
+                gap: 60px;
+                padding: 0 30px;
             }
 
-            .placeholder-item {
-                width: 100%;
-                height: 300px; /* 모바일 높이 지정 */
+            .text-link {
+                justify-content: center !important;
+                text-align: center !important;
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <nav>
-        <div class="menu-text">Menu</div>
-    </nav>
 
     <div class="fixed-name-layer">
         <div class="big-text">SEOYEON</div>
@@ -171,29 +143,17 @@
 
     <main class="grid-container">
         
-        <div class="placeholder-item item-1">
-            <p>[Image Placeholder]</p>
-            <div class="caption">The Life</div>
-        </div>
+        <a href="editorial.html" class="text-link item-1">
+            Translation & Editorial Work
+        </a>
 
-        <div class="placeholder-item item-2">
-            <p>[Image Placeholder]</p>
-            <div class="caption">Open Body, 2021</div>
-        </div>
+        <a href="media.html" class="text-link item-2">
+            Media Relations & Press Communications
+        </a>
 
-        <div class="placeholder-item item-3">
-            <div class="caption">Caption 2</div>
-        </div>
-
-        <div class="placeholder-item item-4">
-            <p>[Image Placeholder]</p>
-            <div class="caption">Waiting for a Child's Truths, 2020</div>
-        </div>
-
-        <div class="placeholder-item item-5">
-            <p>[Image Placeholder]</p>
-            <div class="caption">Redeemer, 2021</div>
-        </div>
+        <a href="pr_strategy.html" class="text-link item-3">
+            PR Strategy & Content Development
+        </a>
 
     </main>
 
