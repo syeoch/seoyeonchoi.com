@@ -13,15 +13,21 @@
         }
 
         body {
-            font-family: 'Times New Roman', Times, serif; /* 세리프 폰트로 우아한 느낌 */
+            font-family: 'Times New Roman', Times, serif;
             background-color: #fff;
             color: #111;
             height: 100vh;
-            overflow: hidden; /* 스크롤 없이 한 화면에 보여주는 스타일 */
+            overflow: hidden;
             position: relative;
         }
 
-        /* --- 1. 배경 고정 텍스트 (SEOYEON ... CHOI) --- */
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        /* --- 1. 배경 고정 텍스트 (SEOYEON ... CHOI) - 링크 기능 추가 --- */
         .fixed-name-layer {
             position: absolute;
             top: 50%;
@@ -29,80 +35,85 @@
             width: 100%;
             transform: translateY(-50%);
             display: flex;
-            justify-content: space-between; /* 양 끝 정렬 */
-            padding: 0 5vw; /* 좌우 여백을 주어 화면 끝에 딱 붙지 않게 함 */
+            justify-content: space-between;
+            padding: 0 5vw;
             z-index: 0;
-            pointer-events: none; /* 클릭 방해 금지 */
+            pointer-events: none; /* 배경 영역 자체는 클릭 통과 (중앙 컨텐츠 클릭 방해 X) */
         }
 
         .big-text {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 굵은 산세리프 */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             font-weight: 900;
-            font-size: 6vw; /* 화면 크기에 반응하는 폰트 크기 */
+            font-size: 6vw;
             letter-spacing: -2px;
             text-transform: uppercase;
             color: #000;
+            cursor: pointer;
+            pointer-events: auto; /* 중요: 텍스트 부분만 클릭 가능하게 복구 */
         }
 
-        /* --- 2. 메인 콘텐츠 그리드 (텍스트 링크 영역) --- */
+        .big-text:hover {
+            opacity: 0.5; /* 마우스 올렸을 때 반응 */
+        }
+
+        /* --- 2. 메인 콘텐츠 그리드 --- */
         main.grid-container {
             position: relative;
-            z-index: 10; /* 이름보다 위에 위치 */
+            z-index: 10;
             width: 100%;
             height: 100vh;
-            max-width: 800px; /* 중앙 콘텐츠가 너무 퍼져서 이름을 가리지 않도록 제한 */
-            margin: 0 auto;   /* 중앙 정렬 */
+            max-width: 800px;
+            margin: 0 auto;
             
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             grid-template-rows: repeat(12, 1fr);
         }
 
-        /* 텍스트 링크 스타일 */
         .text-link {
-            text-decoration: none;
-            color: #000;
             font-size: 1.2rem;
             line-height: 1.4;
             letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: opacity 0.3s, transform 0.3s;
             display: flex;
             align-items: center;
         }
 
         .text-link:hover {
             opacity: 0.6;
-            transform: skewX(-10deg); /* 호버 시 살짝 기울어지는 효과 */
+            transform: skewX(-10deg);
             text-decoration: underline;
             text-underline-offset: 4px;
         }
 
-        /* --- 3. 각 항목 배치 (불규칙한 느낌) --- */
-        
-        /* 1. Translation & Editorial Work (상단 약간 왼쪽) */
-        .item-1 {
-            grid-column: 2 / span 6;
-            grid-row: 3 / span 2;
-            justify-content: flex-start;
+        /* 각 항목 배치 */
+        .item-1 { grid-column: 2 / span 6; grid-row: 3 / span 2; justify-content: flex-start; }
+        .item-2 { grid-column: 6 / span 6; grid-row: 6 / span 2; justify-content: flex-end; text-align: right; }
+        .item-3 { grid-column: 3 / span 8; grid-row: 9 / span 2; justify-content: center; text-align: center; }
+
+        /* --- 3. 우측 하단 연락처 (인스타/이메일) --- */
+        .footer-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            z-index: 100; /* 제일 위에 표시 */
+            display: flex;
+            flex-direction: column; /* 세로 정렬 (가로를 원하면 row로 변경) */
+            align-items: flex-end; /* 우측 정렬 */
+            gap: 5px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 깔끔한 산세리프 */
         }
 
-        /* 2. Media Relations & Press Communications (중앙 약간 오른쪽) */
-        .item-2 {
-            grid-column: 6 / span 6;
-            grid-row: 6 / span 2;
-            text-align: right;
-            justify-content: flex-end;
+        .footer-contact a {
+            font-size: 0.75rem; /* 작게 */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
         }
 
-        /* 3. PR Strategy & Content Development (하단 중앙) */
-        .item-3 {
-            grid-column: 3 / span 8;
-            grid-row: 9 / span 2;
-            justify-content: center;
-            text-align: center;
+        .footer-contact a:hover {
+            color: #000;
+            text-decoration: underline;
         }
-
 
         /* --- 반응형 (모바일) --- */
         @media (max-width: 768px) {
@@ -111,12 +122,9 @@
                 gap: 20px;
                 padding: 0;
                 align-items: center;
-                opacity: 0.1; /* 모바일에서는 배경 텍스트를 연하게 */
+                opacity: 0.15;
             }
-
-            .big-text {
-                font-size: 15vw;
-            }
+            .big-text { font-size: 15vw; }
 
             main.grid-container {
                 display: flex;
@@ -125,11 +133,15 @@
                 gap: 60px;
                 padding: 0 30px;
             }
-
             .text-link {
                 justify-content: center !important;
                 text-align: center !important;
-                font-size: 1.1rem;
+            }
+            
+            .footer-contact {
+                bottom: 20px;
+                right: 20px;
+                align-items: center;
             }
         }
     </style>
@@ -137,25 +149,199 @@
 <body>
 
     <div class="fixed-name-layer">
-        <div class="big-text">SEOYEON</div>
-        <div class="big-text">CHOI</div>
+        <a href="bio.html" class="big-text">SEOYEON</a>
+        <a href="bio.html" class="big-text">CHOI</a>
     </div>
 
     <main class="grid-container">
-        
         <a href="editorial.html" class="text-link item-1">
             Translation & Editorial Work
         </a>
-
         <a href="media.html" class="text-link item-2">
             Media Relations & Press Communications
         </a>
-
         <a href="pr_strategy.html" class="text-link item-3">
             PR Strategy & Content Development
         </a>
-
     </main>
 
+    <footer class="footer-contact">
+        <a href="https://www.instagram.com/syeoch/" target="_blank">Instagram</a>
+        <a href="mailto:debussyreverie24@gmail.com">Email</a>
+    </footer>
+
 </body>
-</html>
+</html<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEOYEON CHOI</title>
+    <style>
+        /* --- 기본 설정 --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            background-color: #fff;
+            color: #111;
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        /* --- 1. 배경 고정 텍스트 (SEOYEON ... CHOI) - 링크 기능 추가 --- */
+        .fixed-name-layer {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            padding: 0 5vw;
+            z-index: 0;
+            pointer-events: none; /* 배경 영역 자체는 클릭 통과 (중앙 컨텐츠 클릭 방해 X) */
+        }
+
+        .big-text {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 900;
+            font-size: 6vw;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            color: #000;
+            cursor: pointer;
+            pointer-events: auto; /* 중요: 텍스트 부분만 클릭 가능하게 복구 */
+        }
+
+        .big-text:hover {
+            opacity: 0.5; /* 마우스 올렸을 때 반응 */
+        }
+
+        /* --- 2. 메인 콘텐츠 그리드 --- */
+        main.grid-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100vh;
+            max-width: 800px;
+            margin: 0 auto;
+            
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            grid-template-rows: repeat(12, 1fr);
+        }
+
+        .text-link {
+            font-size: 1.2rem;
+            line-height: 1.4;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+        }
+
+        .text-link:hover {
+            opacity: 0.6;
+            transform: skewX(-10deg);
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        /* 각 항목 배치 */
+        .item-1 { grid-column: 2 / span 6; grid-row: 3 / span 2; justify-content: flex-start; }
+        .item-2 { grid-column: 6 / span 6; grid-row: 6 / span 2; justify-content: flex-end; text-align: right; }
+        .item-3 { grid-column: 3 / span 8; grid-row: 9 / span 2; justify-content: center; text-align: center; }
+
+        /* --- 3. 우측 하단 연락처 (인스타/이메일) --- */
+        .footer-contact {
+            position: fixed;
+            bottom: 30px;
+            right: 40px;
+            z-index: 100; /* 제일 위에 표시 */
+            display: flex;
+            flex-direction: column; /* 세로 정렬 (가로를 원하면 row로 변경) */
+            align-items: flex-end; /* 우측 정렬 */
+            gap: 5px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 깔끔한 산세리프 */
+        }
+
+        .footer-contact a {
+            font-size: 0.75rem; /* 작게 */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+        }
+
+        .footer-contact a:hover {
+            color: #000;
+            text-decoration: underline;
+        }
+
+        /* --- 반응형 (모바일) --- */
+        @media (max-width: 768px) {
+            .fixed-name-layer {
+                flex-direction: column;
+                gap: 20px;
+                padding: 0;
+                align-items: center;
+                opacity: 0.15;
+            }
+            .big-text { font-size: 15vw; }
+
+            main.grid-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 60px;
+                padding: 0 30px;
+            }
+            .text-link {
+                justify-content: center !important;
+                text-align: center !important;
+            }
+            
+            .footer-contact {
+                bottom: 20px;
+                right: 20px;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed-name-layer">
+        <a href="bio.html" class="big-text">SEOYEON</a>
+        <a href="bio.html" class="big-text">CHOI</a>
+    </div>
+
+    <main class="grid-container">
+        <a href="editorial.html" class="text-link item-1">
+            Translation & Editorial Work
+        </a>
+        <a href="media.html" class="text-link item-2">
+            Media Relations & Press Communications
+        </a>
+        <a href="pr_strategy.html" class="text-link item-3">
+            PR Strategy & Content Development
+        </a>
+    </main>
+
+    <footer class="footer-contact">
+        <a href="https://www.instagram.com/syeoch/" target="_blank">Instagram</a>
+        <a href="mailto:debussyreverie24@gmail.com">Email</a>
+    </footer>
+
+</body>
+</html
