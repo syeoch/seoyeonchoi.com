@@ -1,258 +1,201 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <title>Seoyeon Choi</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEOYEON CHOI</title>
+    <style>
+        /* --- 1. 기본 설정 (Reset & Fonts) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --muted: #888888;
-      --border: #e5e5e5;
-    }
+        body {
+            /* 본문 폰트는 스크린샷과 유사한 세리프(명조) 계열 */
+            font-family: 'Times New Roman', Times, serif; 
+            background-color: #fff;
+            color: #000;
+            overflow-x: hidden; /* 가로 스크롤 방지 */
+            height: 100vh;
+            position: relative;
+        }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+        /* --- 2. 상단 네비게이션 (Menu) --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 40px;
+            z-index: 100;
+        }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-      line-height: 1.6;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 24px 20px 40px;
-    }
+        .menu-text {
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
 
-    /* HEADER */
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      margin-bottom: 48px;
-      display: inline-block;
-    }
+        /* --- 3. 배경 고정 텍스트 (SEOYEON CHOI) --- */
+        /* 스크린샷처럼 화면 양옆에 고정되어 움직이지 않는 큰 이름 */
+        .fixed-name-layer {
+            position: fixed;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 0; /* 콘텐츠 뒤에 위치 */
+            pointer-events: none; /* 드래그나 클릭 방해하지 않음 */
+        }
 
-    /* HERO */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 32px;
-      margin-bottom: 56px;
-    }
+        .big-text {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 굵은 고딕 */
+            font-weight: 900;
+            font-size: 5vw; /* 화면 너비에 비례한 크기 */
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
 
-    @media (max-width: 800px) {
-      .hero {
-        grid-template-columns: 1fr;
-      }
-    }
+        /* --- 4. 메인 콘텐츠 그리드 (플레이스홀더 영역) --- */
+        /* 스크린샷처럼 요소들이 흩뿌려진 느낌을 주기 위한 그리드 */
+        main.grid-container {
+            position: relative;
+            z-index: 1; /* 이름보다 위에 위치 */
+            width: 100%;
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: repeat(12, 1fr); /* 12칸 그리드 시스템 */
+            grid-template-rows: repeat(12, 1fr); /* 세로도 12칸 등분 */
+            padding: 100px 40px;
+            gap: 20px;
+        }
 
-    .placeholder-title {
-      height: 38px;
-      width: 80%;
-      background: #ececec;
-      border-radius: 4px;
-      margin-bottom: 12px;
-    }
+        /* 플레이스홀더 스타일 */
+        .placeholder-item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #f4f4f4; /* 영역 확인용 회색 배경 (실사용시 제거 가능) */
+            border: 1px dashed #ccc;   /* 영역 확인용 점선 (실사용시 제거 가능) */
+            padding: 20px;
+            transition: transform 0.3s;
+        }
 
-    .placeholder-line {
-      height: 16px;
-      width: 100%;
-      background: #f1f1f1;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
+        .placeholder-item:hover {
+            transform: scale(1.02);
+            background-color: #eee;
+        }
 
-    .hero-image {
-      border: 1px solid var(--border);
-      background: #f3f3f3;
-      aspect-ratio: 4 / 3;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
+        .caption {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #333;
+        }
 
-    /* SECTION */
-    section {
-      border-top: 1px solid var(--border);
-      padding-top: 32px;
-      margin-top: 32px;
-    }
+        /* --- 5. 각 아이템의 위치 지정 (스크린샷 레이아웃 모방) --- */
+        
+        /* 아이템 1: 상단 중앙 (The Life) */
+        .item-1 {
+            grid-column: 5 / span 3;
+            grid-row: 2 / span 3;
+        }
 
-    .section-header {
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
+        /* 아이템 2: 상단 우측 (Open Body) */
+        .item-2 {
+            grid-column: 9 / span 3;
+            grid-row: 2 / span 3;
+        }
 
-    .section-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 32px;
-    }
+        /* 아이템 3: 맨 우측 캡션 (Caption 2) */
+        .item-3 {
+            grid-column: 12 / span 1;
+            grid-row: 2 / span 1;
+            background: transparent;
+            border: none;
+            justify-content: flex-start;
+        }
 
-    @media (max-width: 800px) {
-      .section-grid {
-        grid-template-columns: 1fr;
-      }
-    }
+        /* 아이템 4: 하단 중앙 (Waiting for...) */
+        .item-4 {
+            grid-column: 5 / span 4;
+            grid-row: 8 / span 3;
+        }
 
-    .paragraph-placeholder {
-      height: 14px;
-      background: #f1f1f1;
-      border-radius: 4px;
-      margin-bottom: 8px;
-      width: 100%;
-    }
+        /* 아이템 5: 하단 우측 (Redeemer...) */
+        .item-5 {
+            grid-column: 10 / span 3;
+            grid-row: 8 / span 3;
+        }
 
-    .short {
-      width: 60%;
-    }
 
-    /* LISTS */
-    .list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+        /* --- 반응형 (모바일) --- */
+        @media (max-width: 768px) {
+            .fixed-name-layer {
+                flex-direction: column;
+                gap: 20px;
+                opacity: 0.1; /* 모바일엔 배경 텍스트 흐리게 */
+            }
 
-    .list-item {
-      border-bottom: 1px dashed var(--border);
-      padding-bottom: 16px;
-    }
+            main.grid-container {
+                display: flex;
+                flex-direction: column;
+                padding-top: 80px;
+            }
 
-    .thumb {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      background: #f3f3f3;
-      border: 1px solid var(--border);
-      margin-bottom: 10px;
-    }
-
-    /* CONTACT PLACEHOLDER */
-    .contact-placeholder {
-      height: 16px;
-      background: #ededed;
-      border-radius: 4px;
-      width: 70%;
-      margin-bottom: 12px;
-    }
-
-    /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border);
-      margin-top: 48px;
-      padding-top: 16px;
-      font-size: 0.8rem;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-  </style>
+            .placeholder-item {
+                width: 100%;
+                height: 300px; /* 모바일 높이 지정 */
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-  <div class="logo">Seoyeon Choi</div>
+    <nav>
+        <div class="menu-text">Menu</div>
+    </nav>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div>
-      <div class="placeholder-title"></div>
-      <div class="placeholder-line"></div>
-      <div class="placeholder-line" style="width:85%;"></div>
-      <div class="placeholder-line" style="width:70%;"></div>
+    <div class="fixed-name-layer">
+        <div class="big-text">SEOYEON</div>
+        <div class="big-text">CHOI</div>
     </div>
 
-    <div class="hero-image">
-      Image Placeholder
-    </div>
-  </section>
+    <main class="grid-container">
+        
+        <div class="placeholder-item item-1">
+            <p>[Image Placeholder]</p>
+            <div class="caption">The Life</div>
+        </div>
 
-  <!-- ABOUT -->
-  <section>
-    <div class="section-header">About</div>
+        <div class="placeholder-item item-2">
+            <p>[Image Placeholder]</p>
+            <div class="caption">Open Body, 2021</div>
+        </div>
 
-    <div class="section-grid">
-      <div>
-        <div class="paragraph-placeholder"></div>
-        <div class="paragraph-placeholder"></div>
-        <div class="paragraph-placeholder short"></div>
-      </div>
+        <div class="placeholder-item item-3">
+            <div class="caption">Caption 2</div>
+        </div>
 
-      <div>
-        <div class="paragraph-placeholder"></div>
-        <div class="paragraph-placeholder"></div>
-        <div class="paragraph-placeholder short"></div>
-      </div>
-    </div>
-  </section>
+        <div class="placeholder-item item-4">
+            <p>[Image Placeholder]</p>
+            <div class="caption">Waiting for a Child's Truths, 2020</div>
+        </div>
 
-  <!-- PROJECTS -->
-  <section>
-    <div class="section-header">Projects</div>
-    <div class="list">
+        <div class="placeholder-item item-5">
+            <p>[Image Placeholder]</p>
+            <div class="caption">Redeemer, 2021</div>
+        </div>
 
-      <div class="list-item">
-        <div class="thumb"></div>
-        <div class="paragraph-placeholder short"></div>
-      </div>
-
-      <div class="list-item">
-        <div class="thumb"></div>
-        <div class="paragraph-placeholder short"></div>
-      </div>
-
-      <div class="list-item">
-        <div class="thumb"></div>
-        <div class="paragraph-placeholder short"></div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- WRITING -->
-  <section>
-    <div class="section-header">Writing</div>
-
-    <div class="list">
-      <div class="list-item">
-        <div class="paragraph-placeholder" style="width:75%;"></div>
-      </div>
-
-      <div class="list-item">
-        <div class="paragraph-placeholder" style="width:75%;"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section>
-    <div class="section-header">Contact</div>
-
-    <div class="contact-placeholder"></div>
-    <div class="contact-placeholder" style="width:40%;"></div>
-  </section>
-
-  <footer>
-    <div>© <span id="year"></span> Seoyeon Choi</div>
-    <div></div>
-  </footer>
-
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+    </main>
 
 </body>
 </html>
